@@ -21,7 +21,11 @@ app.get('/', function(req, res){
 });
 
 app.post('/process/Login', urlencodedParser, function (req, res) {
-    res.send(req.body.id + "\n" + req.body.PassWord)
+    console.log('>>>>> id <<<<<');
+    console.log(req.body.id);
+    console.log('>>>>> password <<<<<');
+    console.log(req.body.PassWord);
+    res.send("id : " + req.body.id + "<br>" + "pw : " +  req.body.PassWord)
   })
 
 // app.post('/process/Login', function(req, res){
@@ -30,7 +34,7 @@ app.post('/process/Login', urlencodedParser, function (req, res) {
 // });
 
 app.get('/process/Join', function(req, res){
-    console.log('--------------회원가입 페이지 접속--------------');;
+    console.log('--------------회원가입 페이지 접속--------------');
     res.redirect('/join.html');
 });
 
