@@ -3,24 +3,33 @@ const rq = require('request-promise');
 const app = express();
 const serveStatic = require('serve-static');
 const expressSession = require('express-session');
-var bodyParser_post = require('body-parser');
+var bodyParser = require('body-parser')
 const port = 3001;
 
 const router = express.Router();
 
 app.use(serveStatic('views'));
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 app.get('/', function(req, res){
     console.log('--------------로그인 페이지 접속--------------');
     res.redirect('/login.html');
 });
 
-app.post('/process/Login', function(req, res){
-    console.log('--------------플레이오토 접속--------------');;
-    res.redirect('http://www.playauto.co.kr');
-});
+app.post('/process/Login', urlencodedParser, function (req, res) {
+    res.send(req.body.id + "\n" + req.body.PassWord)
+  })
 
-app.post('/process/Join', function(req, res){
+// app.post('/process/Login', function(req, res){
+//     console.log('--------------플레이오토 접속--------------');;
+//     res.redirect('http://www.playauto.co.kr');
+// });
+
+app.get('/process/Join', function(req, res){
     console.log('--------------회원가입 페이지 접속--------------');;
     res.redirect('/join.html');
 });
