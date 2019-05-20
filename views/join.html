@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원가입</title>
+
+<!-- 웹폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Poor+Story&amp;subset=korean" rel="stylesheet">
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script language="javascript">
+    function sample6_execDaumPostcode() {
+        /* 우편번호 찾기 (다음) */
+        new daum.Postcode({
+            oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+               
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+               
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+               
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                // 조합된 참고항목을 해당 필드에 넣는다.
+                document.getElementById("sample6_extraAddress").value = extraAddr;
+                               
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+               
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+
+    function check() {
+
+       var id = document.getElementById("id").value;
+       var pw = document.getElementById("pw").value;
+       var checkpw = document.getElementById("checkpw").value;
+       var phone1 = document.getElementById("phone1").value;
+       var phone2 = document.getElementById("phone2").value;
+       var phone3 = document.getElementById("phone3").value;
+       var name = document.getElementById("name").value;
+       var idlength = id.length;
+       var pwlength = pw.length;
+
+        /* 아이디 (4자 이상) */
+        if(idlength < 4) {
+            alert("아이디를 4자 이상 입력해주세요");
+            document.getElementById("id").focus();
+            return;
+        }
+    
+        /* 비밀번호 (8자 이상) */
+        if(pwlength < 8) {
+            alert("비밀번호를 8자 이상 입력해주세요");
+            document.getElementById("pw").focus();
+            return;
+        }
+
+        /* 비밀번호 확인 */
+        if(pw != checkpw) {
+            alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
+            document.getElementById("checkpw").focus();
+            return;
+        }
+
+        /* 전화번호 */
+        if(phone1 == "") {
+            alert("전화번호를 입력해 주세요.");
+            document.getElementById("phone1").focus();
+            return;
+        }
+
+        if(phone2 == "") {
+            alert("전화번호를 입력해 주세요.");
+            document.getElementById("phone2").focus();
+            return;
+        }
+
+        if(phone3 == "") {
+            alert("전화번호를 입력해 주세요.");
+            document.getElementById("phone3").focus();
+            eturn;
+        }
+       
+        /* 이름 */
+        if(name == "") {
+            alert("이름을 입력해주세요");
+            document.getElementById("name").focus();
+            return;
+        }
+
+        if(join.checked[0].checked==false &&
+           join.checked[3].checked==false) {
+            alert("이용약관에 동의해 주세요.");
+            return;
+        }
+
+        else {
+            alert("회원가입이 성공적으로 처리되었습니다.");
+        }
+    }
+
+    /* 비밀번호 보기 */
+    function seepw() {
+        var pw = document.getElementById("pw").value;
+
+        if (pw.type === "password") {
+            pw.type = "text";
+        }
+        else {
+            pw.type = "password";
+        }
+    }
+       
+    /* 이메일 주소 */
+    function SetEmailTail(emailValue) {
+        var email = document.all("email")
+        var emailTail = document.all("email2")
+   
+    if ( emailValue == "notSelected" )
+        return;
+    else if ( emailValue == "etc" ) {
+        emailTail.readOnly = false;
+        emailTail.value = "";
+        emailTail.focus();}
+    else {
+        emailTail.readOnly = true;
+        emailTail.value = emailValue;
+        }
+    }
+</script>
+
+<style>
+    body {
+    color:dimgray
+    }
+
+    body, center:hover {
+        cursor: url(http://cur.cursors-4u.net/cursors/cur-9/cur817.cur), progress !important;
+    }
+
+    form {
+        font-size:13px;
+        font-family:'Nanum Barun Gothic';
+    }
+    
+    th {
+        width:100px;
+        height:30px;
+    }
+
+    td {
+        width:400px;
+        height:30px;
+        text-align:center;
+    }
+
+    table,th,td {
+        border: solid 1px #ebebeb;
+    }
+
+    ::-moz-selection{
+          background:lightgray;
+          color:white;
+    }
+    ::selection{
+          background:lightgray;
+          color:white;
+    }
+
+    .title {
+        font-size: 40px;
+        color: #93aed2;
+        text-align: center;
+        font-family: 'Poor Story', cursive;
+    }
+</style>
+
+</head>
+
+<body>
+
+<h1 class="title">회원가입</h1>
+<form name="join" onsubmit="return validate();" method="post" action="/process/Join">
+   <table align="center" cellspacing="0" margin="100">
+       <tr height="10" align="center">
+           <th colspan="2" style="background:lightsteelblue; font-size:20px;"><font color="white">필수입력사항</font></th>
+       </tr>
+       <tr>
+           <th>아이디</th>
+           <td><input type="text" style="width:170px" id="id" name="id" maxlength="12"/>
+            <br/>4자 이상</td>
+       </tr>
+       <tr>
+           <th>비밀번호</th>
+           <td><input type="password" style="width:170px" id="pw" maxlength="12"/>
+            <br/>8자 이상 <input type="checkbox" onclick="seepw()">비밀번호 보기</td>
+       </tr>
+       <tr>
+           <th>비밀번호 확인</th>
+           <td><input type="password" style="width:170px" id="checkpw" maxlength="12"/></td>
+       </tr>
+       <tr>
+           <th>전화번호</th>
+           <td><input type="text" id="phone1" style="width:70px"/> -
+           <input type="text" id="phone2" style="width:100px"/> -
+           <input type="text" id="phone3" style="width:100px"/></td>
+       </tr>
+       <tr>
+           <th>이름</th>
+           <td><input type="text" style="width:170px" name="name" id="name" maxlength="12"/></td>
+       </tr>
+       <tr>
+           <th>이용약관 동의</th>
+           <td><input type="radio" id="checked" name="checked" checked="checked"/>동의함
+                <input type="radio" id="checked" name="checked"/>동의안함</td>
+       </tr>
+       <tr height="10" align="center">
+           <th colspan="2" style="background:lightsteelblue; font-size:20px;"><font color="white">선택입력사항</font></th>
+       </tr>
+       <tr>
+           <th>추천인 아이디</th>
+           <td><input type="text" style="width:170px" id="friend" name="friend" maxlength="12"/></td>
+       </tr>
+       <tr>
+           <th>이메일</th>
+           <td><input type="text" style="width:100px" name="email1" value="" />
+            @
+         <input type="text" style="width:120px" name="email2" value="" ReadOnly="true"/>
+         <select name="emailCheck" 
+         onchange="SetEmailTail(emailCheck.options[this.selectedIndex].value)">
+             <option value="notSelected" >- 이메일 선택 -</option>
+             <option value="etc">직접입력</option>
+             <option value="naver.com">naver.com</option>
+             <option value="daum.net">daum.net</option>
+             <option value="gmail.com">gmail.com</option>
+             <option value="nate.com">nate.com</option>
+             <option value="hanmail.net">hanmail.net</option>
+            </select></td>
+       </tr>
+       <tr>
+            <th>생년월일</th>
+            <td><input type="date" id="birth"/>
+            <input type="radio" id="checked" name="birth" checked="checked"/>양력
+            <input type="radio" id="checked" name="birth"/>음력</td>
+        </tr>
+       <tr>
+           <th>주소</th>
+            <td><input type="text" id="sample6_postcode">
+               <input type="button" onclick="sample6_execDaumPostcode()" style="color:#93aed2" value="우편번호 찾기"><br/><br/>
+               <input type="text" id="sample6_address" style="width:300px"> 기본주소<br/><br/>
+               <input type="text" id="sample6_detailAddress" style="width:300px"> 상세주소</td>
+       </tr>
+       <tr>
+           <th>가입경로</th>
+           <td><input type="radio" name="route" checked="checked" value="검색"/>검색</input>
+               <input type="radio" name="route" value="추천인"/>추천인</input>
+               <input type="radio" name="route" value="SNS"/>SNS</input>
+               <input type="radio" name="route" value="기타"/>기타</input>
+           </select>
+           </td>
+       </tr>
+   </table>
+
+   <center>
+       <br/>
+       <input type="button" value="로그인" style="color:#93aed2; background-color:white; border:solid white"/>
+       <font color="#93aed2"> | </font>
+       <input type="button" onclick="check()" value="회원가입" style="color:#93aed2; background-color:white; border:solid white"/>
+   </center>
+
+</form>
+
+</body>
+</html>

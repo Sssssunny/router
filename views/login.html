@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>로그인</title>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<style>
+    body {
+    color:dimgray
+    }
+
+    form {
+        font-size:13px;
+        font-family:'Nanum Barun Gothic';
+    }
+
+    ::-moz-selection{
+          background:lightgray;
+          color:white;
+    }
+    ::selection{
+          background:lightgray;
+          color:white;
+    }
+
+    .title {
+        font-size: 40px;
+        color: #93aed2;
+        text-align: center;
+    }
+</style>
+
+</head>
+
+<body>
+
+<h1 class="title">로그인</h1>
+<form name="join" onsubmit="return validate();" method="post" action="/process/Login">
+   <table align="center" cellspacing="0">
+    <tr>
+        <th colspan="2"><input type="text" name="id" id="id" style="border:solid lightsteelblue 2px; height:35px; width:250px;"></th>
+    </tr>
+        <th colspan="2"><input type="password" name="PassWord" id="pw" style="border:solid lightsteelblue 2px; height:35px; width:250px;"></th>
+    </tr>
+   </table>
+   <center>
+       <br/>
+       <input type="submit" value="로그인" style="color:#93aed2; background-color:white; border:solid white"/>
+       <font color="#93aed2"> | </font>
+       <a href="joinus.html">
+       <input type="button" value="회원가입" style="color:#93aed2; background-color:white; border:solid white"/></a>
+   </center>
+</form>
+
+</body>
+</html>
