@@ -1,5 +1,4 @@
 const express = require('express');
-const rq = require('request-promise');
 const app = express();
 const serveStatic = require('serve-static');
 const expressSession = require('express-session');
