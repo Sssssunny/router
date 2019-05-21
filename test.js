@@ -7,8 +7,8 @@ const port = 3001;
 
 const router = express.Router();
 
+// 미들웨어
 app.use(serveStatic('views'));
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -28,8 +28,8 @@ app.post('/process/Login', urlencodedParser, function (req, res) {
   })
 
 // app.post('/process/Login', function(req, res){
-//     console.log('--------------플레이오토 접속--------------');;
-//     res.redirect('http://www.playauto.co.kr');
+    // console.log('--------------플레이오토 접속--------------');;
+    // res.redirect('http://www.playauto.co.kr');
 // });
 
 app.get('/process/Join', function(req, res){
